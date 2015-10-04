@@ -2,9 +2,14 @@
 
 import RPi.GPIO as GPIO
 import sys
+import subprocess
 
 FAN = 7
 MAX_TEMP = 55 
+
+def sendmail(subject, body):
+	subprocess.call('~/localhost/sendmail.sh "{0}" "{1}"'.format(subject, body), shell=True)
+
 
 def confGPIO():
 	GPIO.setmode(GPIO.BOARD)
@@ -14,6 +19,7 @@ def confGPIO():
 
 def startFan():
 	print 'Starting fan'
+	sendmail('[fan] start!', 'Temp is {0} - starting fan!'.format(getTemp()))
 	GPIO.output(FAN, GPIO.HIGH)
 
 
