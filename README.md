@@ -17,8 +17,8 @@ Schematic
 
 The pinout can be displayed by:
 
-`pip install gpiozero`
-`pinout`
+* `pip install gpiozero`
+* `pinout`
 
 Reference:
 https://pinout.xyz/
