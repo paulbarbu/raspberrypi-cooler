@@ -4,6 +4,7 @@ Start a cooler when the Raspberry Pi gets too hot
 
 Usage
 =====
+0. `pip install gpio`
 1. Create the circuit according to the schematic below.
 2. Attach it to GPIO #7 of the Raspberry Pi and to a ground pin.
 3. Start the (very simple) `temperature.py` script with the `start` or `stop` arguments in order to start/stop the cooler
@@ -13,6 +14,14 @@ Usage
 Schematic
 =========
 ![Raspberry Pi Cooler](/schematic.png?raw=true "Raspberry Pi Cooler")
+
+The pinout can be displayed by:
+
+`pip install gpiozero`
+`pinout`
+
+Reference:
+https://pinout.xyz/
 
 Disclaimer
 ==========

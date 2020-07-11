@@ -3,9 +3,10 @@
 import RPi.GPIO as GPIO
 import sys
 import subprocess
+from datetime import datetime
 
 FAN = 7
-MAX_TEMP = 55 
+MAX_TEMP = 55
 
 def sendmail(subject, body):
 	subprocess.call('~/localhost/sendmail.sh "{0}" "{1}"'.format(subject, body), shell=True)
@@ -18,14 +19,15 @@ def confGPIO():
 
 
 def startFan():
-	print 'Starting fan'
-	sendmail('[fan] start!', 'Temp is {0} - starting fan!'.format(getTemp()))
+	print str(datetime.now()) + ' Starting fan'
+	#sendmail('[fan] start!', 'Temp is {0} - starting fan!'.format(getTemp()))
 	GPIO.output(FAN, GPIO.HIGH)
 
 
 def stopFan():
-	print 'Stopping fan'
+	print str(datetime.now()) + ' Stopping fan'
 	GPIO.output(FAN, GPIO.LOW)
+	# this should be done only here in order to allow the fan to keep running when the script exists
 	GPIO.cleanup()
 
 
@@ -37,7 +39,7 @@ def getTemp():
 		except ValueError:
 			t = -1
 	return t
-		
+
 
 def main():
 	confGPIO()
@@ -47,12 +49,13 @@ def main():
 	elif 'stop' in sys.argv:
 		stopFan()
 	else:
-		t = getTemp() 
-		print 'CPU Temperature: ' + str(t) + ' MAX temp: ' + str(MAX_TEMP)
+		t = getTemp()
+		print str(datetime.now()) + ' CPU Temperature: ' + str(t) + ' MAX temp: ' + str(MAX_TEMP)
 		if t >= MAX_TEMP:
 			startFan()
 		else:
 			stopFan()
+
 
 
 if '__main__'== __name__:
